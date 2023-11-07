@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    /* Basic Options */
+    "target": "es6",
+    "module": "commonjs",
+    "allowJs": true,
+    "outDir": "./dist",
+    /* Strict Type-Checking Options */
+    "strict": true,
+    "esModuleInterop": true,
+    "removeComments": true,
+    /* Source Map Options */
+    "sourceRoot": "./src",
+    "inlineSourceMap": true,
+    "skipLibCheck": true,
+    "typeRoots": ["./src/@types", "./node_modules/@types"]
+  }
+}
