@@ -22,7 +22,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         static associate(models: any) {
             // define association here
             Income.belongsTo(models.user)
-            Income.belongsToMany(models.category, { through: "Income_Category" })
+            Income.belongsToMany(models.category, { through: "income_category" })
         }
     };
     Income.init({
