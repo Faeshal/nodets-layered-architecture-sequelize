@@ -25,7 +25,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
 
         static associate(models: any) {
             // define association here
-            User.hasMany(models.Income)
+            User.hasMany(models.income)
         }
     };
     User.init({
@@ -41,7 +41,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
         role: DataTypes.STRING,
     }, {
         sequelize,
-        modelName: 'User',
+        modelName: 'user',
+        paranoid: true
     });
     return User;
 };

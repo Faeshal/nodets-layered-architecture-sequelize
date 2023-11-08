@@ -9,35 +9,32 @@ log.level = "info";
 // @desc    get users
 // @access  private
 export const getUsers = asyncHandler(async (req, res, next) => {
-    // const { role } = req.query
-    // let filter: any = {}
-    // if (role) {
-    //     filter.role = role
-    // }
+    const { role } = req.query
+    let filter: any = {}
+    if (role) {
+        filter.role = role
+    }
 
-    // const data = await userService.getUsers({
-    //     limit: req.query.limit,
-    //     offset: req.skip,
-    //     filter
-    // });
+    const data = await userService.getUsers({
+        limit: req.query.limit,
+        offset: req.skip,
+        filter
+    });
 
-    // // * pagination
-    // const pagin = await paginate({
-    //     length: data.totalData,
-    //     limit: req.query.limit,
-    //     page: req.query.page,
-    //     req,
-    // });
+    // * pagination
+    const pagin = await paginate({
+        length: data.count,
+        limit: req.query.limit,
+        page: req.query.page,
+        req,
+    });
 
-    // res.status(200).json({
-    //     success: true,
-    //     totalData: data.totalData,
-    //     totalPage: pagin?.totalPage,
-    //     currentPage: pagin?.currentPage,
-    //     nextPage: pagin?.nextPage,
-    //     data: data.data || [],
-    // });
-
-    res.status(200).json({ success: true })
-
+    res.status(200).json({
+        success: true,
+        totalData: data.count,
+        totalPage: pagin?.totalPage,
+        currentPage: pagin?.currentPage,
+        nextPage: pagin?.nextPage,
+        data: data.rows || [],
+    });
 });

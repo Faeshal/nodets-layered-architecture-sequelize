@@ -21,8 +21,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
 
         static associate(models: any) {
             // define association here
-            Income.belongsTo(models.User)
-            Income.belongsToMany(models.Category, { through: "Income_Category" })
+            Income.belongsTo(models.user)
+            Income.belongsToMany(models.category, { through: "Income_Category" })
         }
     };
     Income.init({
@@ -36,7 +36,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
         value: DataTypes.DECIMAL,
     }, {
         sequelize,
-        modelName: 'Income',
+        modelName: 'income',
+        paranoid: true
     });
     return Income;
 };

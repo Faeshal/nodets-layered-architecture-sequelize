@@ -12,7 +12,6 @@ export const register = async (body: { username: string, email: string, password
 
     // * call repo (check double email)
     const emailExist = await userRepo.findOne({ email });
-    log.info("EMAIL", emailExist)
     if (emailExist) {
         return { success: false, statusCode: 400, message: "email already exist" };
     }
@@ -41,40 +40,40 @@ export const register = async (body: { username: string, email: string, password
 
 export const login = async (body: { email: string, password: string }) => {
     log.info("body:", body);
-    // const { email, password } = body
+    const { email, password } = body
 
-    // // * check is email exist ?
-    // const user = await userRepo.findOne({ email });
-    // if (!user) {
-    //     return {
-    //         success: false,
-    //         statusCode: 400,
-    //         message: "email / password doesn't match or exists",
-    //     };
-    // }
+    // * check is email exist ?
+    const user = await userRepo.findOne({ email });
+    if (!user) {
+        return {
+            success: false,
+            statusCode: 400,
+            message: "email / password doesn't match or exists",
+        };
+    }
 
-    // // * compare Password
-    // const isMatch = await bcrypt.compare(password, user.password);
-    // if (!isMatch) {
-    //     return {
-    //         success: false,
-    //         statusCode: 400,
-    //         message: "email / password doesn't match or exists",
-    //     };
-    // }
+    // * compare Password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+        return {
+            success: false,
+            statusCode: 400,
+            message: "email / password doesn't match or exists",
+        };
+    }
 
-    // // * generate paseto token
-    // const tokenPayload = {
-    //     id: user.id,
-    //     timestamp: Date.now(),
-    //     role: user.role
-    // };
-    // const accessToken = await generateToken(tokenPayload);
+    // * generate paseto token
+    const tokenPayload = {
+        id: user.id,
+        timestamp: Date.now(),
+        role: user.role
+    };
+    const accessToken = await generateToken(tokenPayload);
 
-    // // * formating data
-    // const fmtData = {
-    //     isLoggedIn: true,
-    //     accessToken: accessToken.data,
-    // };
-    return { success: true, statusCode: 200, message: "ok", data: "fmtData" };
+    // * formating data
+    const fmtData = {
+        isLoggedIn: true,
+        accessToken: accessToken.data,
+    };
+    return { success: true, statusCode: 200, message: "ok", data: fmtData };
 };

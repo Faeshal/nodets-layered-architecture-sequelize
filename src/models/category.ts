@@ -19,7 +19,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
 
         static associate(models: any) {
             // define association here
-            Category.belongsToMany(models.Income, { through: "Income_Category" })
+            Category.belongsToMany(models.income, { through: "income_category" })
         }
     };
     Category.init({
@@ -32,7 +32,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
         tag: DataTypes.STRING,
     }, {
         sequelize,
-        modelName: 'Category',
+        modelName: 'category',
+        paranoid: true
     });
     return Category;
 };

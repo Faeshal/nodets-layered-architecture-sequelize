@@ -11,36 +11,33 @@ log.level = "info";
 // @desc    get incomes
 // @access  public
 export const getIncomes = asyncHandler(async (req, res, next) => {
-  // const { name } = req.query
-  // let filter: any = {}
-  // if (name) {
-  //   filter.name = name
-  // }
+  const { name } = req.query
+  let filter: any = {}
+  if (name) {
+    filter.name = name
+  }
 
-  // const data = await incomeService.getIncomes({
-  //   limit: req.query.limit,
-  //   offset: req.skip,
-  //   filter
-  // });
+  const data = await incomeService.getIncomes({
+    limit: req.query.limit,
+    offset: req.skip,
+    filter
+  });
 
-  // // * pagination
-  // const pagin = await paginate({
-  //   length: data.totalData,
-  //   limit: req.query.limit,
-  //   page: req.query.page,
-  //   req,
-  // });
+  // * pagination
+  const pagin = await paginate({
+    length: data.count,
+    limit: req.query.limit,
+    page: req.query.page,
+    req,
+  });
 
-  // res.status(200).json({
-  //   success: true,
-  //   totalData: data.totalData,
-  //   totalPage: pagin?.totalPage,
-  //   currentPage: pagin?.currentPage,
-  //   nextPage: pagin?.nextPage,
-  //   data: data.data || [],
-  // });
   res.status(200).json({
     success: true,
+    totalData: data.data.count,
+    totalPage: pagin?.totalPage,
+    currentPage: pagin?.currentPage,
+    nextPage: pagin?.nextPage,
+    data: data.rows || [],
   });
 });
 

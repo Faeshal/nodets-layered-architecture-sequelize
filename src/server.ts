@@ -86,8 +86,8 @@ log4js.configure({
 (async () => {
   try {
     // await db.sequelize.sync();
-    // await sequelizeConnection.authenticate()
-    await db.sequelize.sync({ alter: true });
+    await db.sequelize.authenticate()
+    // await db.sequelize.sync({ alter: true });
     log.info("Maria Connected ✅");
   } catch (error) {
     log.error("Maria Connection Failure 🔥", error);
