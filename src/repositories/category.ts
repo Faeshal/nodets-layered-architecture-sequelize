@@ -17,3 +17,14 @@ export const findAll = async (limit: number, offset: number, filter: any) => {
     });
     return data;
 };
+
+
+export const bulkCreate = async (bodyArr: []) => {
+    const data = await db.category.bulkCreate(bodyArr)
+    return data;
+};
+
+export const findOne = async (filter: any) => {
+    const data = await db.category.findOne({ where: filter });
+    return data
+};

@@ -56,14 +56,7 @@ export const addIncomes = asyncHandler(async (req, res, next) => {
     );
   }
 
-  let fmtIncome = {
-    name, value, userId, categories: {
-      create: categories
-    },
-  }
-  log.info("fmtIncome", fmtIncome)
-
-  const data = await incomeService.addIncome(fmtIncome);
+  const data = await incomeService.addIncome({ name, value, userId, categories });
 
   res.status(201).json({ success: true, message: "created", data });
 });
